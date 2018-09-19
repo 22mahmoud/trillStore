@@ -1,10 +1,9 @@
 import React from 'react';
 
-import Container from '../ui/layout/Container';
-import { Text } from '../ui/components';
+import { Text, Container } from '@trillstore/ui';
 
 const Home = () => (
-  <Container>
+  <Container display="flex" dir="row" align="center" justify="between" px={10}>
     <Text size={14} uppercase>
       free shippping over $100
     </Text>

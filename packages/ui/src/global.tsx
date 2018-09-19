@@ -1,11 +1,10 @@
-import { createGlobalStyle } from 'styled-components';
-import { media } from './utils';
+import { createGlobalStyle } from "./theme/styled-components";
 
 const styled = {
-  createGlobalStyle,
+  createGlobalStyle
 };
 
-const GlobalStyle = styled.createGlobalStyle`
+export const GlobalStyle = styled.createGlobalStyle`
   html,
   body {
     box-sizing: border-box;
@@ -13,10 +12,7 @@ const GlobalStyle = styled.createGlobalStyle`
     margin: 0;
     padding: 0;
     font-size: 16px;
-    ${media.medium` font-size: 18px; `};
-    ${media.large` font-size: 20px; `};
-  }
-
+    
   *,
   *::before,
   *::after {
@@ -42,5 +38,3 @@ const GlobalStyle = styled.createGlobalStyle`
     font-size: 0.75em;
   }
 `;
-
-export default GlobalStyle;
