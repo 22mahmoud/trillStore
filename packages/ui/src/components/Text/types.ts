@@ -4,6 +4,8 @@ export interface ITextProps {
   uppercase: boolean;
   lowercase: boolean;
   capitalize: boolean;
+  color: string;
+  as: React.ReactType;
 }
 
 export interface ITextProps {

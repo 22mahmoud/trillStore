@@ -5,7 +5,9 @@
   "types": "lib/index.d.ts",
   "main": "lib",
   "scripts": {
-    "build": "npm run clean & tsc",
+    "storybook": "start-storybook -p 6006 -c .storybook",
+    "build": "npm run clean && tsc",
+    "build:watch": "npm run clean && tsc -w",
     "clean": "rimraf lib"
   },
   "keywords": [],
@@ -15,15 +17,22 @@
     "react": "^15.0.0-0 || ^16.0.0-0"
   },
   "devDependencies": {
-    "@types/react": "^16.4.14",
+    "@babel/core": "^7.1.0",
+    "@babel/preset-env": "^7.1.0",
+    "@storybook/addon-actions": "^3.4.11",
+    "@storybook/addon-links": "^3.4.11",
+    "@storybook/addons": "^3.4.11",
+    "@storybook/react": "^4.0.0-alpha.23",
     "@types/react-dom": "^16.0.7",
+    "@types/storybook__react": "^3.0.9",
     "@types/styled-components": "^3.0.1",
+    "awesome-typescript-loader": "^5.2.1",
+    "babel-loader": "^8.0.2",
     "react": "^16.5.2",
-    "react-dom": "^16.5.2",
     "typescript": "^3.0.3"
   },
   "dependencies": {
-    "rimraf": "^2.6.2",
-    "styled-components": "^4.0.0-beta.4-hmr"
+    "babel-runtime": "^6.26.0",
+    "rimraf": "^2.6.2"
   }
 }

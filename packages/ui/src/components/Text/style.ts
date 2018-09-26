@@ -7,9 +7,10 @@ const textCss = ({
   size,
   uppercase,
   lowercase,
-  capitalize
+  capitalize,
+  color
 }: ITextProps) => css`
-  text-transform: ${() => {
+  text-transform: ${(): string | null => {
     if (uppercase && !lowercase && !capitalize) {
       return "uppercase";
     }
@@ -20,11 +21,12 @@ const textCss = ({
       return "capitalize";
     }
     return null;
-  }}
+  }};
+  ${size && `font-size: ${getEm(size)}em`};
   font-weight: ${bold && "bold"};
-  font-size:  ${getEm(size)}em;
+  color: ${color} || 'red';
 `;
 
-export const T = styled.div`
+export const T = styled.p`
   ${(props: any) => textCss(props)};
 `;
