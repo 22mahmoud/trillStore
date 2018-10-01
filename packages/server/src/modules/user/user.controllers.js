@@ -1,5 +1,6 @@
 import * as Yup from 'yup';
-import { UserModel } from './user.model';
+
+import * as User from './user.services';
 
 export const createUser = async (userInfo) => {
   const userSchema = Yup.object()
@@ -16,7 +17,7 @@ export const createUser = async (userInfo) => {
     .required();
   try {
     await userSchema.validate(userInfo);
-    const user = await UserModel.create(userInfo);
+    const user = await User.insertUser(userInfo);
     return user;
   } catch (error) {
     throw error;
@@ -24,7 +25,7 @@ export const createUser = async (userInfo) => {
 };
 
 export const getUserByEmail = async (email) => {
-  const user = await UserModel.findOne({ email });
+  const user = await User.findUserByEmail(email);
   if (!user) {
     throw new Error('User is not exist');
   }

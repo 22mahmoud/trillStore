@@ -1,12 +1,11 @@
-import mongoose from 'mongoose';
 import HTTPStatus from 'http-status';
 import * as Yup from 'yup';
 
-import { ProductModel } from './product.model';
+import * as Product from './product.services';
 
 export const getAllProducts = async (req, res, next) => {
   try {
-    const products = await ProductModel.where();
+    const products = await Product.findAllProducts();
     res.status(HTTPStatus.OK).json(products);
   } catch (error) {
     error.status = HTTPStatus.BAD_REQUEST;
@@ -17,7 +16,7 @@ export const getAllProducts = async (req, res, next) => {
 export const getProduct = async (req, res, next) => {
   const { id } = req.params;
   try {
-    const product = await ProductModel.findById(mongoose.Types.ObjectId(id));
+    const product = await Product.findProductById(id);
     res.status(HTTPStatus.OK).json(product);
   } catch (error) {
     error.status = HTTPStatus.BAD_REQUEST;
@@ -36,7 +35,7 @@ export const addProduct = async (req, res, next) => {
 
   try {
     await productSchema.validate(req.body);
-    const product = await ProductModel.create(req.body);
+    const product = await Product.createProduct(req.body);
 
     res.status(HTTPStatus.OK).json(product);
   } catch (error) {
@@ -57,13 +56,9 @@ export const editProduct = async (req, res, next) => {
   try {
     const { id } = req.params;
     await productSchema.validate(req.body);
-    const product = await ProductModel.findById(id);
 
-    Object.keys(req.body).forEach((key) => {
-      product[key] = req.body[key];
-    });
+    const product = await Product.editProduct(id, req.body);
 
-    await product.save();
     res.status(HTTPStatus.OK).json(product);
   } catch (error) {
     error.status = HTTPStatus.BAD_REQUEST;
@@ -74,8 +69,13 @@ export const editProduct = async (req, res, next) => {
 export const deleteProduct = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const product = await ProductModel.findById(id);
-    await product.remove();
+
+    const isDeleted = await Product.deleteProductById(id);
+
+    if (!isDeleted) {
+      throw Error;
+    }
+
     return res.sendStatus(HTTPStatus.ACCEPTED);
   } catch (error) {
     error.status = HTTPStatus.BAD_REQUEST;
