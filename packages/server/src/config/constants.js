@@ -1,6 +1,5 @@
 import * as Yup from 'yup';
 
-// eslint-disable-next-line no-unused-expressions
 require('dotenv').config();
 
 const envSchema = Yup.object()
@@ -9,9 +8,15 @@ const envSchema = Yup.object()
       .oneOf(['development', 'test', 'production'])
       .default('development'),
     PORT: Yup.number().default(8888),
-    MONGO_HOST: Yup.string().required(),
+    MONGO_HOST: Yup.string()
+      .required()
+      .default('localhost'),
     MONGO_PORT: Yup.string().default(27017),
-    MONGO_NAME: Yup.string().required(),
+    MONGO_NAME: Yup.when('NODE_ENV', {
+      is: Yup.string().matches('test'),
+      then: 'TrillStoreTest',
+      otherwise: Yup.string().required(),
+    }),
     MONGO_DEBUG: Yup.boolean().when('NODE_ENV', {
       is: Yup.string().matches('development'),
       then: Yup.boolean().default(true),
