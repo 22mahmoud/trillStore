@@ -6,7 +6,8 @@ import { isValidEmail } from '../../utils/emailValidation';
 
 const CUSTOMER = 'CUSTOMER';
 const ADMIN = 'ADMIN';
-const ROULES = [CUSTOMER, ADMIN];
+const SELLER = 'SELLER';
+const ROLES = [CUSTOMER, ADMIN, SELLER];
 
 const userSchema = new mongoose.Schema(
   {
@@ -35,9 +36,9 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    rule: {
+    role: {
       type: String,
-      enum: ROULES,
+      enum: ROLES,
       default: CUSTOMER,
     },
   },

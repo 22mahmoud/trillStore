@@ -16,10 +16,7 @@ if (debug) {
 
 mongoose.set('useCreateIndex', true);
 
-mongoose.connect(
-  MONGO_URI,
-  { useNewUrlParser: true },
-);
+mongoose.connect(MONGO_URI);
 
 mongoose.connection
   .on('error', error => console.error(error))

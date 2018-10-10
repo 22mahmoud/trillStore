@@ -25,4 +25,9 @@ app.use('/api', ApiRoutes);
 app.get('/', (_, res) => res.send('Hello API'));
 app.get('*', (_, res) => res.sendStatus(404));
 
+app.use((error, res) => {
+  console.error(error);
+  res.status(error.statusCode || 500).json({ message: error.message });
+});
+
 app.listen(constants.port, error => console.log(error || `Server is running on http://localhost:${constants.port} 🚀`));

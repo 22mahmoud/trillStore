@@ -9,6 +9,7 @@ module.exports = {
     },
   },
   rules: {
+    'no-underscore-dangle': 0,
     'import/prefer-default-export': 0,
     'jest/no-disabled-tests': 'warn',
     'jest/no-focused-tests': 'error',

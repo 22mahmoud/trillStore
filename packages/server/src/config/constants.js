@@ -12,7 +12,7 @@ const envSchema = Yup.object()
       .required()
       .default('localhost'),
     MONGO_PORT: Yup.string().default(27017),
-    MONGO_NAME: Yup.when('NODE_ENV', {
+    MONGO_NAME: Yup.string().when('NODE_ENV', {
       is: Yup.string().matches('test'),
       then: 'TrillStoreTest',
       otherwise: Yup.string().required(),
