@@ -1,4 +1,0 @@
-enum flexBoxProperty {
-  "flex",
-  "wow"
-}
