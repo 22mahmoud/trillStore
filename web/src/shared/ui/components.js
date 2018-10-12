@@ -1,5 +1,5 @@
 import { Link as L } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Link = styled(L)`
   margin: 0 10px;
@@ -19,10 +19,14 @@ export const Link = styled(L)`
 `;
 
 export const Input = styled('input')`
-  border: none;
-  border-bottom: 2px solid #446084;
+  border: 1px solid #446084;
+  padding: 10px;
+`;
 
-  :focus {
-    outline: none;
-  }
+export const Button = styled('button')`
+  border: none;
+  padding: 4px;
+  background: ${({ disabled }) => (disabled ? css`#a3a8af` : css`#446084`)};
+  color: #fff;
+  cursor: pointer;
 `;

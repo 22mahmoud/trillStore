@@ -1,6 +1,6 @@
 import React from 'react';
-import { Formik } from 'formik';
 
+import { Formik } from 'formik';
 import { Input } from '../ui/components';
 
 export default () => (

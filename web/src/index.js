@@ -18,6 +18,14 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     font-family: "Assistant", sans-serif;
   }
+
+  input {
+    border: none;
+    
+    :focus {
+      outline: none;
+    }
+  }
 `;
 
 const app = (
