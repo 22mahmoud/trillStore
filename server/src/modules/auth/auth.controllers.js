@@ -7,6 +7,19 @@ import { createUser, getUserByEmail } from '../user';
 const createToken = info => jwt.sign(info, constants.jwt.secret);
 
 export const signup = async (args) => {
+  const signupSchema = Yup.object().shape({
+    firstName: Yup.string().required(),
+    lastName: Yup.string().required(),
+    email: Yup.string()
+      .email()
+      .required(),
+    password: Yup.string().required(),
+  });
+
+  signupSchema.validateSync(args, {
+    abortEarly: false,
+  });
+
   const { _id: id } = await createUser(args);
   return createToken({ id });
 };
