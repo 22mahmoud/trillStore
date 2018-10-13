@@ -2,9 +2,22 @@ import * as Yup from 'yup';
 import jwt from 'jsonwebtoken';
 
 import constants from '../../config/constants';
-import { createUser, getUserByEmail } from '../user';
+import isValidMongoObjectID from '../../utils/mongoObjectIdValidation';
+import { findUserById, insertUser, findUserByEmail } from '../user';
 
 const createToken = info => jwt.sign(info, constants.jwt.secret);
+
+export const me = async (userId, fields) => {
+  const meSchema = Yup.object().shape({
+    id: Yup.mixed().test('userId', 'userId is not ObjectID', value => isValidMongoObjectID(value)),
+    fields: Yup.array().notRequired(),
+  });
+
+  await meSchema.validate({ id: userId, fields });
+
+  const user = await findUserById(userId, fields);
+  return user;
+};
 
 export const signup = async (args) => {
   const signupSchema = Yup.object().shape({
@@ -20,7 +33,7 @@ export const signup = async (args) => {
     abortEarly: false,
   });
 
-  const { _id: id } = await createUser(args);
+  const { _id: id } = await insertUser(args);
   return createToken({ id });
 };
 
@@ -33,7 +46,7 @@ export const login = async (args) => {
   });
 
   await loginSchema.validate(args);
-  const user = await getUserByEmail(args.email);
+  const user = await findUserByEmail(args.email);
   const isValidPassword = user.comparePassword(args.password);
 
   if (!isValidPassword) {
