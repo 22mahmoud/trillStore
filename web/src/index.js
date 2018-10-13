@@ -3,10 +3,18 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createGlobalStyle } from 'styled-components';
 
-import { store, history } from './store';
-
 import App from './routes';
+
+import { me } from './store/me/me.actions';
+import { store, history } from './store';
+import { AUTH_SUCCESS } from './store/acionTypes';
+
 import registerServiceWorker from './registerServiceWorker';
+
+if (localStorage.getItem('token')) {
+  store.dispatch({ type: AUTH_SUCCESS });
+  store.dispatch(me());
+}
 
 const GlobalStyle = createGlobalStyle`
   *,** {

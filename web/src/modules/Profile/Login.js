@@ -1,15 +1,21 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { push } from 'connected-react-router';
 import {
   Formik, Form, Field, validateYupSchema, yupToFormErrors,
 } from 'formik';
 import * as Yup from 'yup';
 
+import { login } from '../../store/auth/auth.actions';
 import { Input } from '../../shared/ui/components';
 import {
   FormButton, FormError, FormWrapper, FormField,
 } from '../../shared/ui/form';
+import Spinner from '../../shared/ui/spinner';
 
-export default () => (
+const mapStateToProps = ({ authReducer: { loading } }) => ({ loading });
+
+export default connect(mapStateToProps)(({ loading, dispatch }) => (
   <Formik
     initialValues={{
       email: '',
@@ -31,12 +37,28 @@ export default () => (
       }
       return {};
     }}
-    onSubmit={(values, { setSubmitting }) => {
-      setTimeout(() => {
-        // eslint-disable-next-line no-console
-        console.log(values);
-        setSubmitting(false);
-      }, 1000);
+    onSubmit={async (values, { setSubmitting, setFieldError }) => {
+      const res = await dispatch(login(values));
+
+      if (res && res.payload && res.payload.error) {
+        const {
+          error: { message },
+        } = res.payload;
+
+        if (message.toLowerCase().includes('user')) {
+          setFieldError('email', message);
+        }
+
+        if (message.toLowerCase().includes('password')) {
+          setFieldError('password', message);
+        }
+      }
+
+      if (res === true) {
+        dispatch(push('/'));
+      }
+
+      setSubmitting(false);
     }}
   >
     {({ isSubmitting }) => (
@@ -52,11 +74,11 @@ export default () => (
         </FormField>
 
         <FormField>
-          <FormButton type="submit" disabled={isSubmitting}>
-            Submit
+          <FormButton type="submit" disabled={isSubmitting || loading}>
+            {loading ? <Spinner /> : 'login'}
           </FormButton>
         </FormField>
       </FormWrapper>
     )}
   </Formik>
-);
+));

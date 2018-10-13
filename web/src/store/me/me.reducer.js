@@ -1,39 +1,33 @@
-import {
-  AUTH_BEGIN, AUTH_SUCCESS, AUTH_FAILURE, AUTH_LOGOUT,
-} from '../acionTypes';
+import { FETCH_ME_REQUEST, FETCH_ME_SUCCESS, FETCH_ME_FAILURE } from '../acionTypes';
 
-const intialstate = {
+const intialState = {
   loading: false,
-  isLoggedIn: null,
+  data: null,
   error: null,
 };
 
-export const authReducer = (state = intialstate, action) => {
+export const meReducer = (state = intialState, action) => {
   switch (action.type) {
-    case AUTH_BEGIN:
+    case FETCH_ME_REQUEST:
       return {
         ...state,
         loading: true,
         error: null,
       };
 
-    case AUTH_SUCCESS:
+    case FETCH_ME_SUCCESS:
       return {
         ...state,
         loading: false,
-        isLoggedIn: true,
+        data: action.payload.data,
       };
 
-    case AUTH_FAILURE:
+    case FETCH_ME_FAILURE:
       return {
         ...state,
         loading: false,
         error: action.payload.error,
-        isLoggedIn: false,
       };
-
-    case AUTH_LOGOUT:
-      return intialstate;
 
     default:
       return state;

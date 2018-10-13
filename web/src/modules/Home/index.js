@@ -1,10 +1,10 @@
 import React from 'react';
+import { Container } from '../../shared/ui/layout';
 
 const Home = () => (
-  <div>
-    <p>free shippping over $100</p>
-    <p>EGP</p>
-  </div>
+  <Container justify="center" align="center" style={{ height: '60vh' }}>
+    <h1> Home </h1>
+  </Container>
 );
 
 export default Home;

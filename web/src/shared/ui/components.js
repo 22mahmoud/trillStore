@@ -1,5 +1,5 @@
-import { Link as L } from 'react-router-dom';
 import styled, { css } from 'styled-components';
+import { Link as L } from 'react-router-dom';
 
 export const Link = styled(L)`
   margin: 0 10px;
@@ -7,13 +7,14 @@ export const Link = styled(L)`
   color: #1b253e;
   position: relative;
   transition: all 0.8s ease;
+  cursor: pointer;
   :hover {
     ::after {
       content: ' ';
       position: absolute;
       width: 100%;
       background-color: #446084;
-      height: 3px;
+      height: 6px;
     }
   }
 `;

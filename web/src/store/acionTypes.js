@@ -1,0 +1,8 @@
+export const AUTH_BEGIN = 'AUTH_BEGIN';
+export const AUTH_SUCCESS = 'AUTH_SUCCESS';
+export const AUTH_FAILURE = 'AUTH_FAILURE';
+export const AUTH_LOGOUT = 'AUTH_LOGOUT';
+
+export const FETCH_ME_REQUEST = 'FETCH_ME_REQUEST';
+export const FETCH_ME_SUCCESS = 'FETCH_ME_SUCCESS';
+export const FETCH_ME_FAILURE = 'FETCH_ME_FAILURE';
