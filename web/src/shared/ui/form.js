@@ -18,7 +18,7 @@ export const FormField = styled(Container)`
 export const FormButton = styled(Button)`
   width: 100%;
   height: 30px;
-  fontsize: 15px;
+  font-size: 15px;
 `;
 
 export const FormError = styled(ErrorMessage)`

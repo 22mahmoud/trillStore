@@ -1,5 +1,3 @@
-import * as userService from './use.service';
+import * as authService from './auth.service';
 
-export default {
-  userService,
-};
+export { authService };

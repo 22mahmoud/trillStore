@@ -1,29 +1,26 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { ConnectedRouter } from 'connected-react-router';
+import { Switch, BrowserRouter, Route } from 'react-router-dom';
 
 import Header from './shared/Header';
 import Home from './modules/Home';
 import Signup from './modules/Profile/Signup';
 import Login from './modules/Profile/Login';
 import Profile from './modules/Profile/Profile';
-import PrivateRoute from './utils/privateRoute';
+import PrivateRoute from './utils/PrivateRoute';
+import { UserContextProvider } from './context/UserContextProvider';
 
-const App = ({ history }) => (
-  <ConnectedRouter history={history}>
+const App = () => (
+  <BrowserRouter>
     <Switch>
-      <>
+      <UserContextProvider>
         <Header />
         <PrivateRoute exact path="/" component={Home} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/signup" component={Signup} />
-        <PrivateRoute exact path="/profile/:id" component={Profile} />
-      </>
+        <Route path="/login" component={Login} />
+        <Route path="/signup" component={Signup} />
+        <PrivateRoute path="/profile/:id" component={Profile} />
+      </UserContextProvider>
     </Switch>
-  </ConnectedRouter>
+  </BrowserRouter>
 );
 
-export default connect(state => ({
-  location: state.router.location.pathname,
-}))(App);
+export default App;

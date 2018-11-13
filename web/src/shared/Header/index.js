@@ -1,24 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { connect } from 'react-redux';
 import { Container } from '../ui/layout';
 import { Link } from '../ui/components';
 import SearchForm from './searchForm';
-import { logout } from '../../store/auth/auth.actions';
 
 const HeaderWrapper = styled(Container)`
   padding: 20px;
   box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
 `;
 
-const mapStateToProps = ({ authReducer, meReducer }) => ({
-  isAuth: authReducer.isLoggedIn,
-  data: meReducer.data,
-  loading: meReducer.loading,
-});
-
-const Header = connect(mapStateToProps)(({
+const Header = ({
   isAuth, dispatch, data = {}, loading,
 }) => (
   <HeaderWrapper dir="row" justify="space-between" align="center">
@@ -46,7 +38,7 @@ const Header = connect(mapStateToProps)(({
             </Link>
           )}
 
-          <Link to="/" onClick={() => dispatch(logout())}>
+          <Link to="/" onClick={() => {}}>
             <span> logout </span>
           </Link>
         </>
@@ -57,6 +49,6 @@ const Header = connect(mapStateToProps)(({
       </Link>
     </Container>
   </HeaderWrapper>
-));
+);
 
 export default Header;

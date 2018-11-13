@@ -4,7 +4,7 @@ import { AUTH_URL } from './constants';
 export const login = async (email, password) => {
   try {
     const { data } = await axios.post(AUTH_URL.LOGIN, { email, password });
-    return data.token;
+    return data;
   } catch (error) {
     throw error;
   }
@@ -13,7 +13,7 @@ export const login = async (email, password) => {
 export const signup = async (info) => {
   try {
     const { data } = await axios.post(AUTH_URL.SIGNUP, info);
-    return data.token;
+    return data;
   } catch (error) {
     throw error;
   }
@@ -21,7 +21,7 @@ export const signup = async (info) => {
 
 export const me = async () => {
   try {
-    const data = await axios.get(`${AUTH_URL.ME}?fields=role,email,firstName,lastName`);
+    const { data } = await axios.get(`${AUTH_URL.ME}?fields=role,email,firstName,lastName`);
     return data;
   } catch (error) {
     throw error;

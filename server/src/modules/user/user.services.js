@@ -11,7 +11,7 @@ export const insertUser = async (info) => {
 
 export const findUserByEmail = async (email) => {
   try {
-    const user = UserModel.findOne({ email });
+    const user = await UserModel.findOne({ email });
     if (!user) {
       throw new Error('User is not exist');
     }

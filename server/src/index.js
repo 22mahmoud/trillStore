@@ -26,7 +26,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api', ApiRoutes);
 
 app.use((error, _, res, next) => {
-  console.error(error);
   let formatedErrors = {};
   if (error.inner) {
     formatedErrors = formateYupErrors(error);
@@ -36,9 +35,9 @@ app.use((error, _, res, next) => {
     formatedErrors = { message: error.message };
   }
 
-  res.status(error.statusCode || 500);
+  console.log('\x1b[31m', 'ERROR::', JSON.stringify(formatedErrors));
 
-  res.json(formatedErrors);
+  res.status(error.statusCode || 500).json(formatedErrors);
   next();
 });
 

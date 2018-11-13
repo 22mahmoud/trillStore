@@ -1,29 +1,44 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Route, Redirect, withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
 
-class PrivateRoute extends React.PureComponent {
-  // componentDidMount() {
-  //   const { dispatch } = this.props;
-  //   // dispatch(me());
-  // }
+import { useUserContext } from '../context/UserContextProvider';
+import { authService } from '../api';
 
-  render() {
-    const { component: Component, isAuth, ...rest } = this.props;
-    return (
-      <Route
-        {...rest}
-        render={props => (isAuth ? (
-          <Component {...props} />
-        ) : (
-          <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
-        ))
-        }
-      />
-    );
-  }
-}
+const PrivateRoute = React.memo(({ component: Component, ...rest }) => {
+  const { user, setUser } = useUserContext();
+  const [loading, setLoading] = useState(true);
 
-const mapStateToProps = ({ authReducer }) => ({ isAuth: authReducer.isLoggedIn });
+  const token = localStorage.getItem('token');
+  useEffect(async () => {
+    try {
+      if (!token) {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user-data');
+        rest.history.push('/login');
+      } else {
+        const res = await authService.me();
+        localStorage.setItem('user-data', JSON.stringify(res));
+        setUser(res);
+      }
+    } catch (error) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user-data');
+      rest.history.push('/login');
+    }
+    setLoading(false);
+  }, []);
 
-export default withRouter(connect(mapStateToProps)(PrivateRoute));
+  return loading ? null : (
+    <Route
+      {...rest}
+      render={props => (user ? (
+        <Component {...props} />
+      ) : (
+        <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
+      ))
+      }
+    />
+  );
+});
+
+export default withRouter(PrivateRoute);

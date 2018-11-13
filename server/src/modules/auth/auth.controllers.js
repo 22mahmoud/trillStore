@@ -33,25 +33,36 @@ export const signup = async (args) => {
     abortEarly: false,
   });
 
-  const { _id: id } = await insertUser(args);
-  return createToken({ id });
+  const user = await insertUser(args);
+  return {
+    token: createToken({ id: user._id }),
+    user,
+  };
 };
 
 export const login = async (args) => {
-  const loginSchema = Yup.object().shape({
-    email: Yup.string()
-      .email()
-      .required(),
-    password: Yup.string().required(),
-  });
+  try {
+    const loginSchema = Yup.object().shape({
+      email: Yup.string()
+        .email()
+        .required(),
+      password: Yup.string().required(),
+    });
 
-  await loginSchema.validate(args);
-  const user = await findUserByEmail(args.email);
-  const isValidPassword = user.comparePassword(args.password);
+    await loginSchema.validate(args);
+    const user = await findUserByEmail(args.email);
 
-  if (!isValidPassword) {
-    throw new Error('Password is not valid');
+    const isValidPassword = user.comparePassword(args.password);
+
+    if (!isValidPassword) {
+      throw new Error('Password is not valid');
+    }
+
+    return {
+      token: createToken({ id: user._id }),
+      user,
+    };
+  } catch (error) {
+    throw error;
   }
-
-  return createToken({ id: user._id }); // eslint-disable-line no-underscore-dangle
 };

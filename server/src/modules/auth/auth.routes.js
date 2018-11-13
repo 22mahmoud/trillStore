@@ -24,9 +24,10 @@ routes.get(
 routes.post(
   '/signup',
   catchException(async (req, res) => {
-    const token = await authControllers.signup(req.body);
+    const { token, user } = await authControllers.signup(req.body);
     return res.status(HTTPStatus.CREATED).json({
       token,
+      user,
     });
   }),
 );
@@ -34,9 +35,10 @@ routes.post(
 routes.post(
   '/login',
   catchException(async (req, res) => {
-    const token = await authControllers.login(req.body);
+    const { token, user } = await authControllers.login(req.body);
     return res.status(HTTPStatus.OK).json({
       token,
+      user,
     });
   }),
 );
