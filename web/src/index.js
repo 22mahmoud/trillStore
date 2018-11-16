@@ -2,29 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { createGlobalStyle } from 'styled-components';
 
+import resetCss from './reset.css';
 import App from './routes';
-
 import registerServiceWorker from './registerServiceWorker';
 
-const GlobalStyle = createGlobalStyle`
-  *,** {
-    box-sizing: border-box;
-  }
-
-  body, html {
-    padding: 0;
-    margin: 0;
-    font-family: "Assistant", sans-serif;
-  }
-
-  input {
-    border: none;
-    
-    :focus {
-      outline: none;
-    }
-  }
-`;
+const GlobalStyle = createGlobalStyle`${resetCss}`;
 
 const app = (
   <>

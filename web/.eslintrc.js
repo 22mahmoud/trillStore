@@ -8,5 +8,7 @@ module.exports = {
   },
   globals: {
     localStorage: true,
+    window: true,
+    document: true,
   },
 };

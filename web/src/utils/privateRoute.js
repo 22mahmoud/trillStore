@@ -27,7 +27,6 @@ const PrivateRoute = React.memo(({ component: Component, ...rest }) => {
     }
     setLoading(false);
   }, []);
-
   return loading ? null : (
     <Route
       {...rest}

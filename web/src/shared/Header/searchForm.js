@@ -21,7 +21,7 @@ export default () => (
     {({
       values, handleChange, handleBlur, handleSubmit,
     }) => (
-      <form style={{ marginRight: 20 }} onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <Input
           placeholder="search .."
           type="text"
