@@ -9,23 +9,25 @@ const PrivateRoute = React.memo(({ component: Component, ...rest }) => {
   const [loading, setLoading] = useState(true);
 
   const token = localStorage.getItem('token');
-  useEffect(async () => {
-    try {
-      if (!token) {
+  useEffect(() => {
+    (async () => {
+      try {
+        if (!token) {
+          localStorage.removeItem('token');
+          localStorage.removeItem('user-data');
+          rest.history.push('/login');
+        } else {
+          const res = await authService.me();
+          localStorage.setItem('user-data', JSON.stringify(res));
+          setUser(res);
+        }
+      } catch (error) {
         localStorage.removeItem('token');
         localStorage.removeItem('user-data');
         rest.history.push('/login');
-      } else {
-        const res = await authService.me();
-        localStorage.setItem('user-data', JSON.stringify(res));
-        setUser(res);
       }
-    } catch (error) {
-      localStorage.removeItem('token');
-      localStorage.removeItem('user-data');
-      rest.history.push('/login');
-    }
-    setLoading(false);
+      setLoading(false);
+    })();
   }, []);
   return loading ? null : (
     <Route

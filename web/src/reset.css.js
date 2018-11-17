@@ -1,6 +1,8 @@
 const styled = { resetCss: css => css };
 
 export default styled.resetCss`
+  @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
+
   *,
   ::after,
   ::before {
@@ -15,6 +17,8 @@ export default styled.resetCss`
   html {
     box-sizing: border-box;
     cursor: default;
+    font-size: 16px;
+    font-family: 'Open Sans', sans-serif;
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
   }
@@ -27,6 +31,7 @@ export default styled.resetCss`
     display: block;
   }
   body {
+    font-size: 18px;
     margin: 0;
   }
   h1 {
@@ -278,7 +283,7 @@ export default styled.resetCss`
   @media all and (max-width: 1000px) {
     html,
     body {
-      font-size: 16px;
+      font-size: 14px;
     }
     li {
       list-style-position: outside;

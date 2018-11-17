@@ -1,16 +1,16 @@
 import React from 'react';
-
-import { useNavContext } from '../../context/NavContextProvider';
 import { Link as L } from '../ui/components';
+import { useNavContext } from '../../context/NavContextProvider';
 
-export const Link = ({ onClick, children, ...props }) => {
-  const { setIsMobNavOpen, isMobileLayout } = useNavContext();
+const Link = ({ children, onClick, ...props }) => {
+  const { isMobileLayout, isMobNavOpen, setIsMobNavOpen } = useNavContext();
   return (
     <L
       onClick={() => {
-        if (isMobileLayout) {
+        if (isMobNavOpen && isMobileLayout) {
           setIsMobNavOpen(false);
         }
+
         if (onClick) {
           onClick();
         }
@@ -21,3 +21,5 @@ export const Link = ({ onClick, children, ...props }) => {
     </L>
   );
 };
+
+export default Link;

@@ -1,19 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
+
 import SearchForm from './searchForm';
+import Link from './Link';
 import { Container } from '../ui/layout';
 import rem from '../ui/utils/rem';
+import { Absolute } from '../ui/components';
 import { useNavContext } from '../../context/NavContextProvider';
+import ShoppingCartIcon from './ShoppingCartIcon';
+import { useUserContext } from '../../context/UserContextProvider';
+import UserDropDown from './UserDropDown';
 
 const NavButtonHandlerWrapper = styled('div')`
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin-left: 1em;
-  height: 100%;
   display: flex;
+  height: 100%;
+  width: 100%;
   align-items: center;
   margin-right: ${rem(22)};
+  margin-left: ${rem(15)};
 
   > span {
     &,
@@ -54,10 +58,37 @@ const MobNavWrapper = styled(Container)`
   }
 `;
 
+const MobNav = ({ children }) => {
+  const { setIsMobNavOpen, isMobNavOpen } = useNavContext();
+  const navRef = React.createRef();
+
+  const closeMobNav = (event) => {
+    if (navRef.current) {
+      if (
+        event.target !== navRef.current
+        && !navRef.current.contains(event.target)
+        && isMobNavOpen
+      ) {
+        setIsMobNavOpen(false);
+      }
+    }
+  };
+
+  React.useEffect(
+    () => {
+      window.addEventListener('click', closeMobNav.bind(this));
+
+      return () => window.removeEventListener('click', closeMobNav.bind(this));
+    },
+    [isMobNavOpen],
+  );
+
+  return <Wrapper ref={navRef}>{children}</Wrapper>;
+};
+
 const Wrapper = styled('div')`
-  background: #1b253e;
+  background: ${({ theme }) => theme.colors.yellow};
   position: absolute;
-  min-height: 100vh;
   left: 0;
   top: 100%;
   width: 100%;
@@ -81,24 +112,39 @@ const NavItemsWrapper = styled(Container)`
   }
 `;
 
-export default ({ renderNavItems }) => {
-  const WrapperRef = React.createRef();
+export default () => {
   const { isMobNavOpen, toggleNav } = useNavContext();
-
+  const { user } = useUserContext();
   return (
     <>
-      <NavButtonHandlerWrapper isOpen={isMobNavOpen} onClick={toggleNav}>
-        <span />
-      </NavButtonHandlerWrapper>
+      <Absolute>
+        <ShoppingCartIcon size={24} style={{ marginRight: rem(5) }} />
+        <UserDropDown />
+        <NavButtonHandlerWrapper isOpen={isMobNavOpen} onClick={toggleNav}>
+          <span />
+        </NavButtonHandlerWrapper>
+      </Absolute>
       {isMobNavOpen ? (
-        <Wrapper ref={WrapperRef}>
+        <MobNav>
           <MobNavWrapper>
             <SearchFormWrapper>
               <SearchForm />
             </SearchFormWrapper>
-            <NavItemsWrapper>{renderNavItems()}</NavItemsWrapper>
+            <NavItemsWrapper>
+              {user ? null : (
+                <>
+                  <Link to="/login">
+                    <span> login </span>
+                  </Link>
+
+                  <Link to="/signup">
+                    <span> signup </span>
+                  </Link>
+                </>
+              )}
+            </NavItemsWrapper>
           </MobNavWrapper>
-        </Wrapper>
+        </MobNav>
       ) : null}
     </>
   );

@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { Link as L } from 'react-router-dom';
 
 export const Link = styled(L)`
@@ -26,10 +26,17 @@ export const Link = styled(L)`
   }
 `;
 
+export const Label = styled('label')`
+  text-align: left;
+  margin-bottom: 0.3rem;
+`;
+
 export const Input = styled('input')`
   background: #fff;
-  border: 1px solid #446084;
+  border: ${p => (p.error ? '1px solid tomato' : `1px solid ${p.theme.colors.yellow}`)};
+  border-radius: 4px;
   padding: 10px;
+
   :focus {
     outline: none;
   }
@@ -38,7 +45,27 @@ export const Input = styled('input')`
 export const Button = styled('button')`
   border: none;
   padding: 4px;
-  background: ${({ disabled }) => (disabled ? css`#a3a8af` : css`#446084`)};
+  background: ${({ disabled, theme }) => (disabled ? theme.colors.darkGray : theme.colors.yellow)};
   color: #fff;
   cursor: pointer;
+`;
+
+export const Absolute = styled('div')`
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  margin-left: 1em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const Relative = styled('div')`
+  position: relative;
+`;
+
+export const P = styled('p')`
+  margin: 0.4rem;
 `;
