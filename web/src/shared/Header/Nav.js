@@ -23,7 +23,7 @@ export default () => {
       {user ? (
         <UserDropDown />
       ) : (
-        <>
+        <Container>
           <Link to="/login">
             <span> login </span>
           </Link>
@@ -31,7 +31,7 @@ export default () => {
           <Link to="/signup">
             <span> signup </span>
           </Link>
-        </>
+        </Container>
       )}
     </Container>
   ) : (

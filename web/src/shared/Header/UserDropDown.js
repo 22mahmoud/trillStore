@@ -10,10 +10,6 @@ const UserDropDown = () => {
     <DropDown title={user.firstName}>
       <DropDownMenu>
         <DropDownMenuItem>
-          {/* eslint-disable-next-line no-underscore-dangle */}
-          <Link to={`/profile/${user._id}`}> Profile </Link>
-        </DropDownMenuItem>
-        <DropDownMenuItem>
           <Link to="/"> My Orders </Link>
         </DropDownMenuItem>
         <DropDownMenuItem>

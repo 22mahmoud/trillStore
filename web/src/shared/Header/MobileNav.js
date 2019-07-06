@@ -119,7 +119,7 @@ export default () => {
     <>
       <Absolute>
         <ShoppingCartIcon size={24} style={{ marginRight: rem(5) }} />
-        <UserDropDown />
+        {user && <UserDropDown />}
         <NavButtonHandlerWrapper isOpen={isMobNavOpen} onClick={toggleNav}>
           <span />
         </NavButtonHandlerWrapper>

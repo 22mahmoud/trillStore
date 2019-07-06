@@ -6,6 +6,7 @@ const Link = ({ children, onClick, ...props }) => {
   const { isMobileLayout, isMobNavOpen, setIsMobNavOpen } = useNavContext();
   return (
     <L
+      style={{ marginLeft: '10px', marginRight: '10px' }}
       onClick={() => {
         if (isMobNavOpen && isMobileLayout) {
           setIsMobNavOpen(false);

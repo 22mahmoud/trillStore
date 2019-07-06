@@ -13,6 +13,10 @@
     "react-scripts": "2.0.4",
     "styled-components": "4.1.1",
     "styled-icons": "^4.0.0",
+    "styled-reset": "^1.6.1",
+    "styled-system": "^3.1.11",
+    "typography": "^0.16.17",
+    "typography-theme-wordpress-2016": "^0.15.10",
     "yup": "^0.26.6"
   },
   "scripts": {

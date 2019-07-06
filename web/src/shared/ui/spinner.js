@@ -14,10 +14,10 @@ const Spinner = styled('div')`
     width: 15px;
     height: 15px;
     margin: 2px;
-    border: 2px solid #fff;
+    border: ${p => `2px solid ${p.color || '#fff'}`};
     border-radius: 50%;
     animation: ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-    border-color: #fff transparent transparent transparent;
+    border-color: ${p => `${p.color || '#fff'} transparent transparent transparent`};
   }
 
   > div:nth-child(1) {
@@ -39,8 +39,8 @@ const Spinner = styled('div')`
   }
 `;
 
-export default () => (
-  <Spinner>
+export default props => (
+  <Spinner {...props}>
     <div />
     <div />
     <div />

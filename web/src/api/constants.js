@@ -5,3 +5,7 @@ export const AUTH_URL = {
   SIGNUP: '/auth/signup',
   ME: '/auth/me',
 };
+
+export const PRODUCT_URL = {
+  BASE: 'products',
+};

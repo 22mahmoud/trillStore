@@ -1,9 +1,11 @@
 import React from 'react';
 import { Container } from '../../shared/ui/layout';
+import Products from '../Products/Products';
+import rem from '../../shared/ui/utils/rem';
 
 const Home = () => (
-  <Container justify="center" align="center" style={{ height: '60vh' }}>
-    <h1> Home </h1>
+  <Container padding={rem(15)}>
+    <Products />
   </Container>
 );
 

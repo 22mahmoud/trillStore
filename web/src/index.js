@@ -1,12 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
+import reset from 'styled-reset';
 
-import resetCss from './reset.css';
 import App from './routes';
 import registerServiceWorker from './registerServiceWorker';
 
-const GlobalStyle = createGlobalStyle`${resetCss}`;
+const GlobalStyle = createGlobalStyle`
+  ${reset};
+  @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
+  html {
+    font-size: 16px;
+    font-family: 'Open Sans', sans-serif;
+  }  
+`;
 
 const theme = {
   colors: {

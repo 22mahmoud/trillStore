@@ -1,12 +1,38 @@
 import styled, { css } from 'styled-components';
+import { mobile, phone } from './utils/media';
 
-export const Container = styled('div')`
+export const DIV = styled('div')`
+  ${({
+    padding, margin, width, maxWidth, maxHeight,
+  }) => css`
+    padding: ${padding};
+    max-height: ${maxHeight};
+    margin: ${margin};
+    width: ${width};
+    max-width: ${maxWidth};
+  `};
+`;
+
+export const Container = styled(DIV)`
   display: flex;
   ${({ dir, justify, align }) => css`
     flex-direction: ${dir};
     justify-content: ${justify};
     align-items: ${align};
   `};
+`;
+
+export const Grid = styled(DIV)`
+  display: grid;
+  grid-template-columns: ${p => p.tempColumns.desktop};
+  grid-gap: ${p => p.gridGap};
+  grid-column-gap: 12px;
+  ${mobile(css`
+    grid-template-columns: ${p => p.tempColumns.mobile};
+  `)};
+  ${phone(css`
+    grid-template-columns: ${p => p.tempColumns.phone};
+  `)};
 `;
 
 /*

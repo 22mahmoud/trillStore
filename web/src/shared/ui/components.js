@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { Link as L } from 'react-router-dom';
+import rem from './utils/rem';
 
 export const Link = styled(L)`
-  margin: 0 10px;
   text-decoration: none;
   color: ${p => p.color || '#fff'};
   position: relative;
@@ -67,5 +67,10 @@ export const Relative = styled('div')`
 `;
 
 export const P = styled('p')`
-  margin: 0.4rem;
+  margin: ${rem(5)};
+`;
+
+export const H5 = styled('h5')`
+  margin: ${rem(5)};
+  line-height: 1.4;
 `;

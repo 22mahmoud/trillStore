@@ -26,7 +26,7 @@ export default ({ history }) => {
       justify="center"
       style={{ padding: `${rem(15)} ${rem(15)} 0 ${rem(15)} ` }}
     >
-      <h2 style={{ textTransform: 'uppercase' }}> Signup </h2>
+      <h2 style={{ textTransform: 'uppercase', margin: '3em', fontWeight: 'bolder' }}>Sign up</h2>
 
       <Formik
         initialValues={{
@@ -72,7 +72,6 @@ export default ({ history }) => {
       >
         {({ isSubmitting }) => (
           <FormWrapper dir="column" align="center" as={Form} style={{ width: '100%' }}>
-            
             <FormField dir="column">
               <Label>First name</Label>
               <Input as={Field} type="text" name="firstName" placeholder="Mahmoud" />
